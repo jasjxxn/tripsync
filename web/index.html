@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TripSync Recipe Finder</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <div>
+        <p class="eyebrow">TripSync</p>
+        <h1>Balanced Recipe Finder</h1>
+        <p class="lede">
+          Tell us what’s left in your fridge and we’ll surface balanced meals that match a
+          40/30/30 macro split.
+        </p>
+      </div>
+    </header>
+
+    <main class="app-main">
+      <section class="card">
+        <form id="ingredient-form">
+          <label for="ingredient-input">Ingredients on hand</label>
+          <textarea
+            id="ingredient-input"
+            placeholder="e.g. chickpeas, spinach, lemon, feta"
+            rows="3"
+          ></textarea>
+
+          <div class="controls">
+            <label>
+              Suggestions
+              <input id="suggestion-count" type="number" min="1" max="10" value="3" />
+            </label>
+            <label class="checkbox">
+              <input id="show-missing" type="checkbox" checked />
+              <span>Show missing ingredients</span>
+            </label>
+          </div>
+
+          <button type="submit" class="primary-button">Find recipes</button>
+        </form>
+      </section>
+
+      <section id="results" class="results">
+        <p class="placeholder">Add ingredients to see recipe suggestions.</p>
+      </section>
+    </main>
+
+    <template id="recipe-template">
+      <article class="recipe-card">
+        <header class="recipe-header">
+          <div>
+            <h2 class="recipe-title"></h2>
+            <p class="recipe-servings"></p>
+          </div>
+          <div class="score-pill"></div>
+        </header>
+        <p class="recipe-tags"></p>
+        <p class="recipe-macros"></p>
+        <div class="recipe-body">
+          <h3>Instructions</h3>
+          <ol class="recipe-steps"></ol>
+        </div>
+        <div class="recipe-missing hidden">
+          <h3>Missing ingredients</h3>
+          <ul></ul>
+        </div>
+        <p class="recipe-notes hidden"></p>
+      </article>
+    </template>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

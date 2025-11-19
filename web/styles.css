@@ -1,0 +1,222 @@
+:root {
+  color-scheme: light dark;
+  --bg: #0a0a0a;
+  --fg: #f7f7f7;
+  --card-bg: rgba(255, 255, 255, 0.06);
+  --accent: #64d68a;
+  --muted: #a7a7a7;
+  --border: rgba(255, 255, 255, 0.1);
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: radial-gradient(circle at top, #1a1f2b, #050505 60%);
+  color: var(--fg);
+  display: flex;
+  flex-direction: column;
+}
+
+.app-header {
+  padding: 3rem 1.5rem 1.5rem;
+  text-align: center;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin-bottom: 0.4rem;
+}
+
+.app-header h1 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  margin: 0.2rem 0;
+}
+
+.lede {
+  max-width: 32rem;
+  margin: 0.5rem auto 0;
+  color: #d1d1d1;
+}
+
+.app-main {
+  width: min(960px, 90vw);
+  margin: 0 auto 3rem;
+  display: grid;
+  gap: 1.5rem;
+}
+
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  backdrop-filter: blur(10px);
+}
+
+label {
+  font-weight: 600;
+  display: block;
+  margin-bottom: 0.4rem;
+}
+
+textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 0.8rem;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.05);
+  color: inherit;
+  resize: vertical;
+  min-height: 4rem;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1rem;
+  align-items: center;
+}
+
+.controls input[type="number"] {
+  width: 4rem;
+  margin-left: 0.5rem;
+  padding: 0.4rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.05);
+  color: inherit;
+}
+
+.checkbox {
+  display: inline-flex;
+  gap: 0.4rem;
+  align-items: center;
+  font-weight: 500;
+}
+
+.primary-button {
+  margin-top: 1rem;
+  width: 100%;
+  padding: 0.9rem;
+  background: var(--accent);
+  color: #041f0f;
+  font-weight: 600;
+  border: none;
+  border-radius: 0.9rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.primary-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 30px rgba(100, 214, 138, 0.4);
+}
+
+.results {
+  display: grid;
+  gap: 1rem;
+}
+
+.placeholder {
+  text-align: center;
+  color: var(--muted);
+}
+
+.recipe-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.recipe-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+}
+
+.recipe-title {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.recipe-servings {
+  margin: 0.2rem 0 0;
+  color: var(--muted);
+}
+
+.score-pill {
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  background: rgba(100, 214, 138, 0.14);
+  border: 1px solid rgba(100, 214, 138, 0.6);
+  font-weight: 600;
+}
+
+.recipe-tags {
+  margin: 0;
+  color: var(--muted);
+}
+
+.recipe-macros {
+  margin: 0;
+  font-weight: 600;
+}
+
+.recipe-body {
+  margin-top: 0.3rem;
+}
+
+.recipe-body ol {
+  padding-left: 1rem;
+}
+
+.recipe-body li + li {
+  margin-top: 0.4rem;
+}
+
+.recipe-missing ul {
+  margin: 0.5rem 0 0;
+  padding-left: 1.1rem;
+}
+
+.recipe-notes {
+  margin: 0.5rem 0 0;
+  font-style: italic;
+  color: var(--muted);
+}
+
+.hidden {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .controls {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .recipe-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .primary-button {
+    font-size: 1rem;
+  }
+}

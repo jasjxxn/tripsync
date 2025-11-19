@@ -1,0 +1,18 @@
+{
+  "name": "tripsync",
+  "version": "1.0.0",
+  "description": "Balanced recipe recommender that uses your fridge ingredients.",
+  "private": true,
+  "scripts": {
+    "dev": "python3 -m http.server 8080",
+    "cli": "python3 balanced_recipe_book.py --interactive",
+    "suggest": "python3 balanced_recipe_book.py"
+  },
+  "keywords": [
+    "recipes",
+    "nutrition",
+    "cli"
+  ],
+  "author": "",
+  "license": "MIT"
+}
