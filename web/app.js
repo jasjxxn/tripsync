@@ -1,259 +1,334 @@
-const DATA_URL = "../data/recipes.json";
-const CAL_FACTORS = { carbs: 4, protein: 4, fat: 9 };
-const TARGET_RATIOS = { carbs: 0.4, protein: 0.3, fat: 0.3 };
-const RATIO_TOLERANCE = 0.1;
+const DATA_URL = "../data/itineraries.json";
+const MIN_DAYS = 3;
+const MAX_DAYS = 10;
+const SCHEDULE_ORDER = ["morning", "afternoon", "evening", "late"];
 
 const state = {
-  recipes: [],
+  destinations: [],
   ready: false,
 };
 
 document.addEventListener("DOMContentLoaded", () => {
-  loadRecipes();
-  const form = document.querySelector("#ingredient-form");
+  loadDestinations();
+  const form = document.querySelector("#planner-form");
   form.addEventListener("submit", handleSubmit);
 });
 
-async function loadRecipes() {
+async function loadDestinations() {
+  const select = document.querySelector("#destination-select");
   const results = document.querySelector("#results");
   try {
     const response = await fetch(DATA_URL);
     if (!response.ok) {
-      throw new Error(`Failed to load recipes (${response.status})`);
+      throw new Error(`Unable to fetch itineraries (${response.status})`);
     }
     const payload = await response.json();
-    state.recipes = payload.map(hydrateRecipe);
+    state.destinations = payload;
     state.ready = true;
+    populateDestinationSelect(select, payload);
   } catch (error) {
-    results.innerHTML = `<p class="placeholder">Unable to load recipes: ${error.message}</p>`;
+    results.innerHTML = `<p class="placeholder">${error.message}</p>`;
   }
+}
+
+function populateDestinationSelect(select, destinations) {
+  const sorted = [...destinations].sort((a, b) => a.city.localeCompare(b.city));
+  sorted.forEach((destination) => {
+    const option = document.createElement("option");
+    option.value = destination.id;
+    option.textContent = `${destination.city}, ${destination.country}`;
+    select.appendChild(option);
+  });
 }
 
 function handleSubmit(event) {
   event.preventDefault();
+  const results = document.querySelector("#results");
   if (!state.ready) {
-    renderPlaceholder("Still loading recipes. Please try again in a moment.");
+    results.innerHTML = '<p class="placeholder">Still loading destination data. Try again shortly.</p>';
     return;
   }
-  const textarea = document.querySelector("#ingredient-input");
-  const countInput = document.querySelector("#suggestion-count");
-  const showMissing = document.querySelector("#show-missing").checked;
-
-  const pantry = parseIngredients(textarea.value);
-  if (!pantry.size) {
-    renderPlaceholder("Add at least one ingredient to get suggestions.");
+  const destinationId = document.querySelector("#destination-select").value;
+  if (!destinationId) {
+    renderPlaceholder("Pick a destination to start planning.");
     return;
   }
-  const limit = Math.min(10, Math.max(1, parseInt(countInput.value, 10) || 1));
-  const scored = scoreRecipes(state.recipes, pantry, limit);
-  if (!scored.length) {
-    renderPlaceholder("No balanced recipes matched your ingredients yet. Try adding more items.");
+  const destination = state.destinations.find((item) => item.id === destinationId);
+  if (!destination) {
+    renderPlaceholder("That destination is missing from the dataset. Try another city or update the JSON.");
     return;
   }
-  renderResults(scored, pantry, showMissing);
+  const preferences = collectPreferences();
+  const itinerary = buildItinerary(destination, preferences);
+  renderItinerary(destination, itinerary);
 }
 
-function hydrateRecipe(data) {
+function collectPreferences() {
+  const lengthInput = document.querySelector("#trip-length");
+  const rawLength = parseInt(lengthInput.value, 10);
+  const tripLength = clamp(Number.isNaN(rawLength) ? MIN_DAYS : rawLength, MIN_DAYS, MAX_DAYS);
+  const startValue = document.querySelector("#start-date").value;
+  const startDate = startValue ? new Date(startValue) : null;
+  const validStartDate = startDate && !Number.isNaN(startDate.valueOf()) ? startDate : null;
+  const styleNodes = document.querySelectorAll('input[name="styles"]:checked');
+  const styles = new Set(Array.from(styleNodes, (node) => node.value));
+  const pace = document.querySelector('input[name="pace"]:checked')?.value || "balanced";
+  return { tripLength, startDate: validStartDate, styles, pace };
+}
+
+function buildItinerary(destination, preferences) {
+  const length = clamp(preferences.tripLength, MIN_DAYS, MAX_DAYS);
+  const baseDays = Array.isArray(destination.days) ? destination.days : [];
+  const flexDays = Array.isArray(destination.flexDays) ? destination.flexDays : [];
+  const selected = baseDays.slice(0, Math.min(length, baseDays.length));
+  if (selected.length < length) {
+    const extras = pickFlexDays(flexDays, length - selected.length, preferences.styles);
+    selected.push(...extras);
+  }
+  while (selected.length < length) {
+    selected.push(createOpenExplorationDay(destination, preferences));
+  }
+  const meta = {
+    length,
+    pace: preferences.pace,
+    startDate: preferences.startDate,
+    paceNote: destination.paceNotes?.[preferences.pace] || "",
+    bestSeasons: destination.bestSeasons || [],
+    tags: destination.tags || [],
+    requestedStyles: Array.from(preferences.styles),
+    highlights: destination.highlights || [],
+    localTips: destination.localTips || [],
+  };
+  return { days: selected, meta };
+}
+
+function pickFlexDays(flexDays, count, styles) {
+  if (!flexDays.length || count <= 0) {
+    return [];
+  }
+  const scored = flexDays.map((day) => ({
+    day,
+    score: styleMatchScore(day, styles),
+  }));
+  scored.sort((a, b) => b.score - a.score);
+  return scored.slice(0, count).map((entry) => entry.day);
+}
+
+function styleMatchScore(day, styles) {
+  if (!styles.size || !Array.isArray(day.style) || !day.style.length) {
+    return 0;
+  }
+  const matches = day.style.filter((tag) => styles.has(tag));
+  return matches.length;
+}
+
+function createOpenExplorationDay(destination, preferences) {
+  const chosenStyle = preferences.styles.values().next().value || "flex";
+  const highlight = destination.highlights?.[0] || destination.city;
   return {
-    name: data.name,
-    servings: data.servings ?? 1,
-    coreIngredients: normalizeList(data.core_ingredients || []),
-    supportingIngredients: normalizeList(data.supporting_ingredients || []),
-    instructions: [...(data.instructions || [])],
-    macros: data.macros || {},
-    tags: data.tags || [],
-    notes: data.notes || "",
+    title: "Open exploration",
+    focus: "Flex day",
+    style: [chosenStyle],
+    schedule: {
+      morning: `Slow morning in ${destination.city} to revisit a favorite cafe or pick up last-minute gifts.`,
+      afternoon: `Follow your curiosity toward ${chosenStyle} spots—ask locals for their latest recommendations.`,
+      evening: "Keep the night open for spontaneous reservations or well-earned rest.",
+    },
+    meals: ["Brunch: Somewhere new", "Dinner: Your pick"],
+    notes: `Use this flex slot to chase ${highlight.toLowerCase()} or add a final-day splurge.`,
   };
 }
 
-function normalizeList(items) {
-  return items.map((item) => normalizeToken(item)).filter(Boolean);
-}
-
-function normalizeToken(value = "") {
-  return value
-    .toLowerCase()
-    .replace(/[^a-z0-9\s]/g, " ")
-    .split(/\s+/)
-    .filter(Boolean)
-    .join(" ");
-}
-
-function parseIngredients(rawText) {
-  const chunks = rawText.split(/[,;\n]/);
-  const pantry = new Set();
-  for (const chunk of chunks) {
-    const normalized = normalizeToken(chunk);
-    if (normalized) {
-      pantry.add(normalized);
-    }
-  }
-  return pantry;
-}
-
-function tokenize(phrase) {
-  return phrase.split(" ").filter(Boolean);
-}
-
-function ingredientMatches(ingredient, pantry) {
-  const ingredientTokens = tokenize(ingredient);
-  if (!ingredientTokens.length) {
-    return false;
-  }
-  for (const item of pantry) {
-    const tokens = tokenize(item);
-    if (!tokens.length) {
-      continue;
-    }
-    const overlap = tokens.filter((token) => ingredientTokens.includes(token)).length;
-    if (overlap === 0) {
-      continue;
-    }
-    const coverage = overlap / Math.min(tokens.length, ingredientTokens.length);
-    if (coverage >= 0.6) {
-      return true;
-    }
-  }
-  return false;
-}
-
-function ingredientScore(recipe, pantry) {
-  if (!recipe.coreIngredients.length) {
-    return 0;
-  }
-  const coreHits = recipe.coreIngredients.filter((item) => ingredientMatches(item, pantry)).length;
-  const coreRatio = coreHits / recipe.coreIngredients.length;
-  let supportingRatio = 0;
-  if (recipe.supportingIngredients.length) {
-    const supportingHits = recipe.supportingIngredients.filter((item) =>
-      ingredientMatches(item, pantry),
-    ).length;
-    supportingRatio = supportingHits / recipe.supportingIngredients.length;
-  }
-  return coreRatio * 0.75 + supportingRatio * 0.25;
-}
-
-function macroRatios(recipe) {
-  const macros = recipe.macros || {};
-  const calories = Object.entries(CAL_FACTORS).reduce(
-    (sum, [macro, factor]) => sum + (macros[macro] || 0) * factor,
-    0,
-  );
-  if (calories <= 0) {
-    return Object.fromEntries(Object.keys(TARGET_RATIOS).map((key) => [key, 0]));
-  }
-  return Object.fromEntries(
-    Object.entries(TARGET_RATIOS).map(([macro]) => [
-      macro,
-      ((macros[macro] || 0) * CAL_FACTORS[macro]) / calories,
-    ]),
-  );
-}
-
-function balanceScore(recipe) {
-  const ratios = macroRatios(recipe);
-  const totalDelta = Object.entries(TARGET_RATIOS).reduce((sum, [macro, target]) => {
-    const delta = Math.abs((ratios[macro] || 0) - target) / RATIO_TOLERANCE;
-    return sum + delta;
-  }, 0);
-  const score = 1 - totalDelta / Object.keys(TARGET_RATIOS).length;
-  return Math.max(0, Math.min(1, score));
-}
-
-function isBalanced(recipe) {
-  const ratios = macroRatios(recipe);
-  return Object.entries(TARGET_RATIOS).every(
-    ([macro, target]) => Math.abs((ratios[macro] || 0) - target) <= RATIO_TOLERANCE,
-  );
-}
-
-function scoreRecipes(recipes, pantry, limit) {
-  const ranked = recipes
-    .filter(isBalanced)
-    .map((recipe) => {
-      const coverage = ingredientScore(recipe, pantry);
-      const balance = balanceScore(recipe);
-      return {
-        recipe,
-        coverage,
-        balance,
-        score: coverage * 0.8 + balance * 0.2,
-      };
-    })
-    .filter((entry) => entry.coverage > 0);
-  ranked.sort((a, b) => b.score - a.score);
-  return ranked.slice(0, limit);
-}
-
-function formatMacros(macros = {}) {
-  const order = ["carbs", "protein", "fat", "fiber"];
-  return order
-    .filter((macro) => macros[macro] !== undefined)
-    .map((macro) => `${macro}: ${macros[macro]}g`)
-    .join(", ");
-}
-
-function missingIngredients(recipe, pantry) {
-  const missingCore = recipe.coreIngredients.filter((item) => !ingredientMatches(item, pantry));
-  const missingSupport = recipe.supportingIngredients.filter(
-    (item) => !ingredientMatches(item, pantry),
-  );
-  return { missingCore, missingSupport };
-}
-
-function renderResults(entries, pantry, showMissing) {
+function renderItinerary(destination, itinerary) {
   const results = document.querySelector("#results");
   results.innerHTML = "";
-  const template = document.querySelector("#recipe-template");
+  const card = document.createElement("article");
+  card.className = "itinerary-card";
 
-  entries.forEach((entry, index) => {
-    const clone = template.content.firstElementChild.cloneNode(true);
-    clone.querySelector(".recipe-title").textContent = `${index + 1}. ${entry.recipe.name}`;
-    clone.querySelector(".recipe-servings").textContent = `Serves ${entry.recipe.servings}`;
-    clone.querySelector(".score-pill").textContent = `Score ${(entry.score * 100).toFixed(0)}%`;
-    clone.querySelector(".recipe-tags").textContent =
-      entry.recipe.tags?.length ? entry.recipe.tags.join(" · ") : "No tags";
-    clone.querySelector(".recipe-macros").textContent = formatMacros(entry.recipe.macros);
+  const header = document.createElement("header");
+  header.className = "itinerary-header";
+  const title = document.createElement("h2");
+  title.textContent = `${destination.city}, ${destination.country}`;
+  const summary = document.createElement("p");
+  summary.className = "summary";
+  summary.textContent = destination.summary;
+  header.appendChild(title);
+  header.appendChild(summary);
 
-    const stepsList = clone.querySelector(".recipe-steps");
-    entry.recipe.instructions.forEach((step) => {
-      const li = document.createElement("li");
-      li.textContent = step;
-      stepsList.appendChild(li);
-    });
+  const metaGrid = buildMetaGrid(itinerary.meta);
+  const highlightsSection = buildHighlights(destination.highlights);
+  const dayList = buildDayList(itinerary.days, itinerary.meta.startDate);
+  const tipsSection = buildTips(destination.localTips);
 
-    const missingBlock = clone.querySelector(".recipe-missing");
-    const missingList = missingBlock.querySelector("ul");
-    missingList.innerHTML = "";
-    if (showMissing) {
-      const { missingCore, missingSupport } = missingIngredients(entry.recipe, pantry);
-      if (missingCore.length) {
-        const li = document.createElement("li");
-        li.textContent = `Core: ${missingCore.join(", ")}`;
-        missingList.appendChild(li);
-      }
-      if (missingSupport.length) {
-        const li = document.createElement("li");
-        li.textContent = `Supporting: ${missingSupport.join(", ")}`;
-        missingList.appendChild(li);
-      }
-      if (missingCore.length || missingSupport.length) {
-        missingBlock.classList.remove("hidden");
-      }
-    }
+  card.appendChild(header);
+  card.appendChild(metaGrid);
+  if (highlightsSection) {
+    card.appendChild(highlightsSection);
+  }
+  card.appendChild(dayList);
+  if (tipsSection) {
+    card.appendChild(tipsSection);
+  }
+  results.appendChild(card);
+}
 
-    const notes = entry.recipe.notes?.trim();
-    if (notes) {
-      const notesElement = clone.querySelector(".recipe-notes");
-      notesElement.textContent = `Notes: ${notes}`;
-      notesElement.classList.remove("hidden");
-    }
+function buildMetaGrid(meta) {
+  const dl = document.createElement("dl");
+  dl.className = "meta-grid";
+  addMetaRow(dl, "Trip length", `${meta.length} days`);
+  if (meta.bestSeasons.length) {
+    addMetaRow(dl, "Best seasons", meta.bestSeasons.join(" · "));
+  }
+  const styleText = meta.requestedStyles.length
+    ? meta.requestedStyles.join(", ")
+    : meta.tags.join(", ");
+  if (styleText) {
+    addMetaRow(dl, "Vibes", styleText);
+  }
+  if (meta.paceNote) {
+    addMetaRow(dl, "Pace guide", meta.paceNote);
+  } else {
+    addMetaRow(dl, "Pace", meta.pace);
+  }
+  return dl;
+}
 
-    results.appendChild(clone);
+function addMetaRow(dl, label, value) {
+  const term = document.createElement("dt");
+  term.textContent = label;
+  const detail = document.createElement("dd");
+  detail.textContent = value;
+  dl.appendChild(term);
+  dl.appendChild(detail);
+}
+
+function buildHighlights(highlights = []) {
+  if (!highlights.length) {
+    return null;
+  }
+  const section = document.createElement("section");
+  section.className = "highlights";
+  const heading = document.createElement("h3");
+  heading.textContent = "Highlights";
+  const list = document.createElement("ul");
+  highlights.forEach((item) => {
+    const li = document.createElement("li");
+    li.textContent = item;
+    list.appendChild(li);
   });
+  section.appendChild(heading);
+  section.appendChild(list);
+  return section;
+}
+
+function buildDayList(days, startDate) {
+  const wrapper = document.createElement("section");
+  wrapper.className = "day-list";
+  const template = document.querySelector("#day-template");
+  days.forEach((day, index) => {
+    const clone = template.content.firstElementChild.cloneNode(true);
+    clone.querySelector(".day-label").textContent = formatDayLabel(index, startDate);
+    clone.querySelector(".day-title").textContent = day.title;
+    clone.querySelector(".focus-tag").textContent = day.focus || "";
+    const schedule = clone.querySelector(".schedule");
+    renderSchedule(schedule, day.schedule);
+    renderMeals(clone, day.meals);
+    renderNotes(clone, day.notes);
+    wrapper.appendChild(clone);
+  });
+  return wrapper;
+}
+
+function formatDayLabel(dayIndex, startDate) {
+  const base = `Day ${dayIndex + 1}`;
+  if (!startDate) {
+    return base;
+  }
+  const date = new Date(startDate);
+  date.setDate(date.getDate() + dayIndex);
+  if (Number.isNaN(date.valueOf())) {
+    return base;
+  }
+  const label = date.toLocaleDateString(undefined, {
+    weekday: "short",
+    month: "short",
+    day: "numeric",
+  });
+  return `${base} · ${label}`;
+}
+
+function renderSchedule(list, schedule = {}) {
+  list.innerHTML = "";
+  SCHEDULE_ORDER.forEach((slot) => {
+    if (!schedule[slot]) {
+      return;
+    }
+    const item = document.createElement("li");
+    const label = document.createElement("span");
+    label.className = "slot-label";
+    label.textContent = capitalize(slot);
+    const description = document.createElement("p");
+    description.textContent = schedule[slot];
+    item.appendChild(label);
+    item.appendChild(description);
+    list.appendChild(item);
+  });
+}
+
+function renderMeals(container, meals = []) {
+  const mealBlock = container.querySelector(".meal-list");
+  const mealList = mealBlock.querySelector("ul");
+  mealList.innerHTML = "";
+  if (!meals.length) {
+    mealBlock.classList.add("hidden");
+    return;
+  }
+  meals.forEach((meal) => {
+    const item = document.createElement("li");
+    item.textContent = meal;
+    mealList.appendChild(item);
+  });
+  mealBlock.classList.remove("hidden");
+}
+
+function renderNotes(container, notes = "") {
+  const noteElement = container.querySelector(".day-notes");
+  if (!notes?.trim()) {
+    noteElement.classList.add("hidden");
+    return;
+  }
+  noteElement.textContent = notes;
+  noteElement.classList.remove("hidden");
+}
+
+function buildTips(tips = []) {
+  if (!tips.length) {
+    return null;
+  }
+  const section = document.createElement("section");
+  section.className = "tips";
+  const heading = document.createElement("h3");
+  heading.textContent = "Local intel";
+  const list = document.createElement("ul");
+  tips.forEach((tip) => {
+    const li = document.createElement("li");
+    li.textContent = tip;
+    list.appendChild(li);
+  });
+  section.appendChild(heading);
+  section.appendChild(list);
+  return section;
 }
 
 function renderPlaceholder(message) {
   const results = document.querySelector("#results");
   results.innerHTML = `<p class="placeholder">${message}</p>`;
+}
+
+function clamp(value, min, max) {
+  return Math.max(min, Math.min(max, value));
+}
+
+function capitalize(text = "") {
+  return text.charAt(0).toUpperCase() + text.slice(1);
 }

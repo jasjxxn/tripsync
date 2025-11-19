@@ -1,0 +1,637 @@
+[
+  {
+    "id": "tokyo",
+    "city": "Tokyo",
+    "country": "Japan",
+    "region": "Asia",
+    "summary": "Neon nights, ramen crawls, and zen gardens all inside one transit swipe.",
+    "tags": ["culture", "foodie", "nightlife"],
+    "bestSeasons": ["March-May", "October-November"],
+    "idealLength": 5,
+    "paceNotes": {
+      "chill": "Swap a museum for an onsen soak and keep mornings slow with third-wave coffee.",
+      "balanced": "Mix headline sights with neighborhood wanders and leave evenings open for ramen cues.",
+      "energetic": "Add late-night jazz bars, early market runs, and quick Shinkansen day trips."
+    },
+    "highlights": [
+      "teamLab Planets immersion",
+      "View from Shinjuku Metropolitan Building",
+      "Tsukiji outer market sashimi",
+      "Sunset ferry to Odaiba",
+      "Day trip to Nikko or Hakone"
+    ],
+    "days": [
+      {
+        "title": "Arrival & Shinjuku glow",
+        "focus": "Orientation",
+        "style": ["culture", "nightlife"],
+        "schedule": {
+          "morning": "Land, drop bags near Shinjuku or Shibuya, and reset with a walk through the Meiji Shrine forest.",
+          "afternoon": "Browse Harajuku side streets, Omotesando architecture, and book teamLab Planets for an immersive art stop.",
+          "evening": "Head to the Shinjuku Metropolitan Building for dusk panoramas then graze through Omoide Yokocho yakitori alleys."
+        },
+        "meals": [
+          "Snack: Harajuku crepe stand",
+          "Dinner: Yakitori tasting in Omoide Yokocho"
+        ],
+        "notes": "If your flight lands late, pivot to a casual ramen crawl instead."
+      },
+      {
+        "title": "Tsukiji dawn & Asakusa",
+        "focus": "Markets",
+        "style": ["foodie", "culture"],
+        "schedule": {
+          "morning": "Arrive early to Tsukiji outer market for tamagoyaki, tuna bowls, and kitchenware shopping.",
+          "afternoon": "Ride the Ginza line to Sensō-ji, explore Nakamise street snacks, then cruise the Sumida River south.",
+          "evening": "Cross to Akihabara arcades or book a tea ceremony near Ueno for a calmer close."
+        },
+        "meals": [
+          "Breakfast: Tsukiji sushi bar",
+          "Dinner: Craft tempura counter"
+        ],
+        "notes": "Grab a 24-hour metro pass if you expect 4+ rides today."
+      },
+      {
+        "title": "Modern Tokyo loop",
+        "focus": "Neighborhoods",
+        "style": ["culture", "nightlife"],
+        "schedule": {
+          "morning": "Check out contemporary art in Roppongi (Mori Art Museum) before coffee at Toranomon Hills.",
+          "afternoon": "Take the monorail to Odaiba, walk the seaside park, and time a sunset ferry back toward Tokyo Tower.",
+          "evening": "Do the Shibuya Sky observatory then people-watch at the scramble and end with cocktails in Golden Gai."
+        },
+        "meals": [
+          "Lunch: Tonkatsu in Roppongi",
+          "Dessert: Taiyaki along Odaiba Seaside Park"
+        ],
+        "notes": "Reserve Shibuya Sky weeks ahead during peak seasons."
+      },
+      {
+        "title": "Day trip flex",
+        "focus": "Escape",
+        "style": ["outdoors", "relaxation"],
+        "schedule": {
+          "morning": "Take the Romancecar to Hakone or the JR Nikko line for cedar forests and lake cruises.",
+          "afternoon": "Enjoy onsen baths, ropeway volcano views, or Nikko's ornate Toshogu Shrine complexes.",
+          "evening": "Return to Tokyo in time for izakaya comfort food near your hotel."
+        },
+        "meals": [
+          "Lunch: Onsen ryokan kaiseki",
+          "Dinner: Cozy izakaya near your station"
+        ],
+        "notes": "Reserve day-trip rail seats the day prior at any JR ticket office."
+      },
+      {
+        "title": "Creative set",
+        "focus": "Design",
+        "style": ["culture", "foodie"],
+        "schedule": {
+          "morning": "Browse design studios in Daikanyama and pick up souvenirs at T-Site.",
+          "afternoon": "Head to Shimokitazawa thrift shops or Kichijoji for Ghibli Museum ticket (book months ahead).",
+          "evening": "Wrap with a jazz set in Shibuya or Nakameguro canal stroll if you're keeping things easy."
+        },
+        "meals": [
+          "Brunch: Daikanyama bakery",
+          "Dinner: Izakaya tasting menu"
+        ],
+        "notes": "Check the live-house schedule for intimate shows (Blue Note, Cotton Club)."
+      }
+    ],
+    "flexDays": [
+      {
+        "title": "Yokohama harbour day",
+        "focus": "Waterfront",
+        "style": ["culture", "relaxation"],
+        "schedule": {
+          "morning": "Ride 30 minutes south to Yokohama to tour the Cup Noodles Museum and Red Brick Warehouse.",
+          "afternoon": "Picnic in Yamashita Park then wander Chinatown for dim sum tastings.",
+          "evening": "Return for a calm onsen soak at Thermae-Yu back in Shinjuku."
+        },
+        "meals": [
+          "Lunch: Chinatown dim sum",
+          "Snack: Yokohama craft beer"
+        ],
+        "notes": "Pair with rooftop bar reservations if you still have energy."
+      },
+      {
+        "title": "Studio Ghibli inspired loop",
+        "focus": "Pop culture",
+        "style": ["culture"],
+        "schedule": {
+          "morning": "Take the train to Mitaka for the Ghibli Museum (pre-book timed entry).",
+          "afternoon": "Continue to Kichijoji's Inokashira Park boating lake and indie cafes.",
+          "evening": "Browse Nakano Broadway collectibles then dinner at a kissaten jazz cafe."
+        },
+        "meals": [
+          "Lunch: Kichijoji soba shop",
+          "Dessert: Fluffy pancakes in Nakano"
+        ],
+        "notes": "Museum tickets release monthly and sell out within hours."
+      }
+    ],
+    "localTips": [
+      "Load an IC transit card (Suica/PASMO) before leaving the airport.",
+      "Most ramen counters are walk-in; buy a ticket at the vending machine first.",
+      "Convenience stores stock excellent grab-and-go breakfasts for early departures."
+    ]
+  },
+  {
+    "id": "lisbon",
+    "city": "Lisbon",
+    "country": "Portugal",
+    "region": "Europe",
+    "summary": "Hilltop views, tiled facades, and day trips to pastel palaces on the Atlantic breeze.",
+    "tags": ["culture", "foodie", "coastal"],
+    "bestSeasons": ["March-June", "September-November"],
+    "idealLength": 4,
+    "paceNotes": {
+      "chill": "Scatter miradouros with long espresso stops and keep afternoons light.",
+      "balanced": "Blend tram hops with waterfront walks and sunset fado shows.",
+      "energetic": "Stack a Sintra or Cascais day trip plus late-night Bairro Alto."
+    },
+    "highlights": [
+      "Alfama fado evening",
+      "Pastéis de Belém warm from the oven",
+      "Azulejo workshop in LX Factory",
+      "Sintra's Pena Palace and Quinta da Regaleira",
+      "Sunset at Miradouro da Senhora do Monte"
+    ],
+    "days": [
+      {
+        "title": "Baixa & Alfama",
+        "focus": "Old town",
+        "style": ["culture"],
+        "schedule": {
+          "morning": "Ride Elevador de Santa Justa for the lay of the land, then wander Baixa squares.",
+          "afternoon": "Climb Alfama's lanes toward Castelo de São Jorge, pausing at miradouros for tile-lined vistas.",
+          "evening": "Book a fado dinner in Alfama or Mouraria for soulful guitar sets."
+        },
+        "meals": [
+          "Lunch: Tinned fish tasting at Sol e Pesca",
+          "Dinner: Traditional fado menu"
+        ],
+        "notes": "Wear shoes with grip—Alfama's cobblestones tilt sharply."
+      },
+      {
+        "title": "Belém & riverfront",
+        "focus": "History",
+        "style": ["culture", "foodie"],
+        "schedule": {
+          "morning": "Catch Tram 15 to Belém for Jerónimos Monastery and the Discoveries Monument.",
+          "afternoon": "Tour MAAT's contemporary curves, then ferry back for LX Factory creatives and azulejo workshops.",
+          "evening": "Watch sunset at Time Out Market's rooftop then share petiscos at the hall."
+        },
+        "meals": [
+          "Snack: Pastéis de Belém",
+          "Dinner: Petiscos crawl at Time Out Market"
+        ],
+        "notes": "Pre-book Jerónimos tickets online to skip the queue."
+      },
+      {
+        "title": "Sintra adventure",
+        "focus": "Day trip",
+        "style": ["culture", "outdoors"],
+        "schedule": {
+          "morning": "Train to Sintra, head straight to Pena Palace for fairy-tale towers before crowds arrive.",
+          "afternoon": "Descend through Quinta da Regaleira tunnels and lunch in the village. Uber to Cabo da Roca cliffs if weather cooperates.",
+          "evening": "Return to Lisbon for sunset drinks along the Ribeira das Naus promenade."
+        },
+        "meals": [
+          "Lunch: Sintra tapas garden",
+          "Dinner: Riverfront seafood"
+        ],
+        "notes": "Use the Sintra bus 434 loop to avoid steep climbs between sites."
+      },
+      {
+        "title": "Modern Lisbon",
+        "focus": "Neighborhoods",
+        "style": ["foodie", "culture"],
+        "schedule": {
+          "morning": "Explore Príncipe Real boutiques and farmers market (weekends).",
+          "afternoon": "Head to Parque das Nações for oceanarium visits or rent bikes along the flat waterfront.",
+          "evening": "Close out in Bairro Alto with rooftop bars or intimate vinyl bars in Cais do Sodré."
+        },
+        "meals": [
+          "Brunch: Tasca da Esquina",
+          "Dinner: Bairro Alto tasting menu"
+        ],
+        "notes": "Many shops close mid-afternoon on Sundays—plan markets earlier."
+      }
+    ],
+    "flexDays": [
+      {
+        "title": "Cascais coastal loop",
+        "focus": "Coast",
+        "style": ["coastal", "relaxation"],
+        "schedule": {
+          "morning": "Train to Cascais for boardwalk walks and museum visits (Casa das Histórias Paula Rego).",
+          "afternoon": "Bike west to Boca do Inferno cliffs and Guincho Beach dunes.",
+          "evening": "Return for seafood cataplana near Cais do Sodré."
+        },
+        "meals": [
+          "Lunch: Beachfront poke bowls",
+          "Dinner: Cataplana feast"
+        ],
+        "notes": "Winds pick up after 3pm—pack layers for the ride."
+      },
+      {
+        "title": "Tile & food workshop",
+        "focus": "Hands-on",
+        "style": ["culture", "foodie"],
+        "schedule": {
+          "morning": "Take an azulejo painting workshop at a local studio near Graça.",
+          "afternoon": "Join a pastel de nata baking class or market-to-table cooking school.",
+          "evening": "Celebrate with sunset cocktails at Miradouro de Santa Catarina."
+        },
+        "meals": [
+          "Lunch: Market tastings",
+          "Dessert: Self-made pastries"
+        ],
+        "notes": "Workshops often sell out—reserve when you book flights."
+      }
+    ],
+    "localTips": [
+      "Buy a Viva Viagem card for unlimited tram/bus rides on travel days.",
+      "Most restaurants serve bread, olives, and cheese automatically—politely decline to avoid charges.",
+      "Sunset viewpoints fill up; arrive 30 minutes early if you want a railing spot."
+    ]
+  },
+  {
+    "id": "mexico-city",
+    "city": "Mexico City",
+    "country": "Mexico",
+    "region": "North America",
+    "summary": "Megalopolis energy with leafy barrios, world-class museums, and markets dripping with chile and citrus.",
+    "tags": ["culture", "foodie", "nightlife"],
+    "bestSeasons": ["February-May", "October"],
+    "idealLength": 5,
+    "paceNotes": {
+      "chill": "Anchor in Condesa cafés, linger over mezcal tastings, and limit multi-museum days.",
+      "balanced": "Pair historic core mornings with park walks and progressive dinners.",
+      "energetic": "Add sunrise balloon rides, lucha libre nights, and Toluca volcano hikes."
+    },
+    "highlights": [
+      "Sunrise at Teotihuacan pyramids",
+      "Blue house of Frida Kahlo",
+      "Floating trajinera picnic in Xochimilco",
+      "Polanco tasting menus",
+      "Roma Norte galleries"
+    ],
+    "days": [
+      {
+        "title": "Centro histórico",
+        "focus": "History",
+        "style": ["culture"],
+        "schedule": {
+          "morning": "Walk the Zócalo, Palacio Nacional murals, and Templo Mayor ruins.",
+          "afternoon": "Tour Palacio de Bellas Artes then eat your way through Mercado de San Juan and La Ciudadela crafts.",
+          "evening": "Catch a rooftop sunset drink above the cathedral before dinner in Roma."
+        },
+        "meals": [
+          "Lunch: Mercado de San Juan seafood tostadas",
+          "Dinner: Roma tasting menu"
+        ],
+        "notes": "Museums close Mondays—shuffle the schedule if needed."
+      },
+      {
+        "title": "Chapultepec & Polanco",
+        "focus": "Parks",
+        "style": ["culture", "relaxation"],
+        "schedule": {
+          "morning": "Wander Chapultepec Park, climb the castle, and visit the National Anthropology Museum.",
+          "afternoon": "Grab churros, rent bikes along Reforma's Sunday ciclovía (if weekend), and window-shop Polanco's boutiques.",
+          "evening": "Book an omakase or contemporary Mexican dinner around Masaryk."
+        },
+        "meals": [
+          "Lunch: Chapultepec food stalls",
+          "Dinner: Pujol or Quintonil reservation"
+        ],
+        "notes": "Reserve Anthropology Museum tickets online to skip onsite lines."
+      },
+      {
+        "title": "Coyoacán creatives",
+        "focus": "Art",
+        "style": ["culture", "foodie"],
+        "schedule": {
+          "morning": "Tour the Frida Kahlo Museum (Casa Azul) followed by coffee in leafy plazas.",
+          "afternoon": "Visit Leon Trotsky's house, browse Mercado Coyoacán snacks, and pick up churros.",
+          "evening": "Head to Xochimilco for a golden-hour trajinera ride with snacks and mariachi."
+        },
+        "meals": [
+          "Lunch: Mercado tostadas",
+          "Dinner: Xochimilco picnic"
+        ],
+        "notes": "Casa Azul tickets sell out quickly—book 2-3 weeks ahead."
+      },
+      {
+        "title": "Teotihuacan sunrise",
+        "focus": "Day trip",
+        "style": ["adventure", "culture"],
+        "schedule": {
+          "morning": "Leave at 4 am for a sunrise balloon flight above the pyramids followed by a guided site walk.",
+          "afternoon": "Lunch at a cave restaurant near the site, then nap back in Condesa parks.",
+          "evening": "Low-key taco crawl (al pastor, suadero, birria) along Avenida Tamaulipas."
+        },
+        "meals": [
+          "Breakfast: Coffee + concha to-go",
+          "Dinner: Tacos al pastor"
+        ],
+        "notes": "Bring layers—the valley is chilly before the sun hits."
+      },
+      {
+        "title": "Roma & Condesa",
+        "focus": "Neighborhoods",
+        "style": ["foodie", "nightlife"],
+        "schedule": {
+          "morning": "Coffee crawl through Roma's third-wave spots and browse street art alleys.",
+          "afternoon": "Shop Casa Bosques chocolates, Lardo bakery, and small galleries.",
+          "evening": "Do a mezcal tasting before a chef's counter dinner then dance at a vinyl listening bar."
+        },
+        "meals": [
+          "Lunch: Lardo pizzas",
+          "Dinner: Lucha libre + late-night tacos"
+        ],
+        "notes": "Check local listings for pop-up design markets on weekends."
+      }
+    ],
+    "flexDays": [
+      {
+        "title": "Nevado de Toluca hike",
+        "focus": "Outdoors",
+        "style": ["adventure", "outdoors"],
+        "schedule": {
+          "morning": "Drive 2 hours to the volcano crater and hike the twin lagoons loop.",
+          "afternoon": "Picnic above the crater or stop in Toluca for chorizo tastings.",
+          "evening": "Return early for a spa session or quiet dinner."
+        },
+        "meals": [
+          "Lunch: Packed sandwiches",
+          "Dinner: Condesa wine bar"
+        ],
+        "notes": "Altitude reaches 4,000m—acclimate in the city for a few days first."
+      },
+      {
+        "title": "Puebla flavors",
+        "focus": "Food",
+        "style": ["foodie", "culture"],
+        "schedule": {
+          "morning": "Take the ADO bus to Puebla, explore the cathedral square and colorful talavera tile workshops.",
+          "afternoon": "Taste mole poblano, cemitas, and sweets on Calle de los Dulces.",
+          "evening": "Return to CDMX for rooftop drinks near the Monument to the Revolution."
+        },
+        "meals": [
+          "Lunch: Mole sampler",
+          "Dinner: Rooftop cocktails"
+        ],
+        "notes": "Grab a seat on the upper level of the ADO bus for views of Popocatépetl volcano."
+      }
+    ],
+    "localTips": [
+      "Carry small change for metro rides and market snacks—cards are not widely accepted.",
+      "Altitude is ~2,200m; drink extra water and pace alcohol nights early in the trip.",
+      "Use authorized taxi stands or app-based rides for late-night exits."
+    ]
+  },
+  {
+    "id": "reykjavik",
+    "city": "Reykjavik",
+    "country": "Iceland",
+    "region": "Europe",
+    "summary": "Basecamp for waterfalls, lava fields, and cozy cafes under midnight sun or northern lights skies.",
+    "tags": ["outdoors", "adventure", "relaxation"],
+    "bestSeasons": ["May-September", "December-February"],
+    "idealLength": 4,
+    "paceNotes": {
+      "chill": "Focus on geothermal pools and short scenic drives with long coffee shop stops.",
+      "balanced": "Do a Golden Circle day plus a south coast loop and keep evenings for hot springs.",
+      "energetic": "Layer glacier hikes, lava tunnels, and midnight aurora hunts."
+    },
+    "highlights": [
+      "Golden Circle waterfalls",
+      "Sky Lagoon soak",
+      "Vík black sand beaches",
+      "Snorkeling Silfra fissure",
+      "Northern lights jeep hunt"
+    ],
+    "days": [
+      {
+        "title": "Downtown orientation",
+        "focus": "City",
+        "style": ["relaxation", "culture"],
+        "schedule": {
+          "morning": "Walk Laugavegur's shops, visit Hallgrímskirkja tower for skyline views, and grab cinnamon buns at Brauð & Co.",
+          "afternoon": "Tour the Sun Voyager sculpture and learn volcanic history at the Perlan museum.",
+          "evening": "Book Sky Lagoon or local public pools for a geothermal soak at sunset."
+        },
+        "meals": [
+          "Lunch: Icelandic hot dog stand",
+          "Dinner: New Nordic tasting menu"
+        ],
+        "notes": "Reserve Sky Lagoon's 7-step ritual ahead of weekends."
+      },
+      {
+        "title": "Golden Circle",
+        "focus": "Road trip",
+        "style": ["outdoors", "adventure"],
+        "schedule": {
+          "morning": "Pick up your rental car, drive to Þingvellir National Park, and snorkel Silfra or hike the tectonic plates.",
+          "afternoon": "Continue to Geysir geothermal area and Gullfoss waterfall, stopping for tomato soup at Friðheimar greenhouse.",
+          "evening": "Return via Secret Lagoon or Fontana spa soak."
+        },
+        "meals": [
+          "Lunch: Friðheimar tomato greenhouse",
+          "Dinner: Casual lamb stew"
+        ],
+        "notes": "Refuel in Selfoss—stations can be sparse deeper in the loop."
+      },
+      {
+        "title": "South coast expedition",
+        "focus": "Waterfalls",
+        "style": ["outdoors"],
+        "schedule": {
+          "morning": "Drive to Seljalandsfoss waterfall (walk behind it) then continue to Skógafoss for rainbow sprays.",
+          "afternoon": "Explore Reynisfjara black sand beach and basalt columns, detouring to Dyrhólaey cliffs if puffins are nesting.",
+          "evening": "Stay overnight near Vík or head back for a late dinner in Reykjavik."
+        },
+        "meals": [
+          "Lunch: Roadside fish and chips",
+          "Dinner: Vík microbrewery"
+        ],
+        "notes": "Check road.is for weather closures, especially in winter."
+      },
+      {
+        "title": "Glaciers or aurora",
+        "focus": "Adventure",
+        "style": ["adventure", "outdoors"],
+        "schedule": {
+          "morning": "Choose a glacier hike on Sólheimajökull or a lava tunnel tour near Reykjavik.",
+          "afternoon": "Return to town for coffeehouse hopping and design shopping.",
+          "evening": "Join a guided northern lights jeep chase (winter) or midnight sun photo walk (summer)."
+        },
+        "meals": [
+          "Lunch: Local soup served in bread bowls",
+          "Dinner: Reykjavik food hall"
+        ],
+        "notes": "Guided tours bundle gear—no need to pack crampons unless self-driving on ice."
+      }
+    ],
+    "flexDays": [
+      {
+        "title": "Snæfellsnes peninsula",
+        "focus": "Scenic",
+        "style": ["outdoors", "photography"],
+        "schedule": {
+          "morning": "Drive 2.5 hours to Snæfellsnes for Kirkjufell mountain shots and lava fields.",
+          "afternoon": "Walk black church at Búðir, sample rye bread baked in hot springs at Laugarvatn.",
+          "evening": "Stay in a countryside guesthouse for aurora chances."
+        },
+        "meals": [
+          "Lunch: Grundarfjörður fish soup",
+          "Dinner: Guesthouse family meal"
+        ],
+        "notes": "Fuel up before the peninsula—services are limited."
+      },
+      {
+        "title": "Westman Islands",
+        "focus": "Wildlife",
+        "style": ["adventure", "outdoors"],
+        "schedule": {
+          "morning": "Ferry to Heimaey to see puffin colonies and hike Eldfell volcano.",
+          "afternoon": "Visit the Beluga Whale Sanctuary and learn about the 1973 eruption.",
+          "evening": "Return for seafood dinner back in Reykjavik."
+        },
+        "meals": [
+          "Lunch: Heimaey seafood shack",
+          "Dinner: Reykjavik lobster soup"
+        ],
+        "notes": "Ferries are weather-dependent—keep backups in mind."
+      }
+    ],
+    "localTips": [
+      "Pack layers even midsummer; winds change quickly.",
+      "Tap water is geothermal-heated—let it run cold before filling bottles.",
+      "Respect moss fields and stay on paths to protect fragile growth."
+    ]
+  },
+  {
+    "id": "vancouver",
+    "city": "Vancouver",
+    "country": "Canada",
+    "region": "North America",
+    "summary": "Ocean air meets pine forests: cycle the seawall, eat through markets, and hop to nearby mountains.",
+    "tags": ["outdoors", "foodie", "coastal"],
+    "bestSeasons": ["May-October"],
+    "idealLength": 4,
+    "paceNotes": {
+      "chill": "Stick to seawall rides, Granville Island tastings, and relaxed brewery hops.",
+      "balanced": "Blend Stanley Park cycles with North Shore hikes and Gastown dinners.",
+      "energetic": "Add Squamish gondola, Capilano canyoning, and dawn kayak paddles."
+    },
+    "highlights": [
+      "Stanley Park seawall",
+      "Granville Island market",
+      "Capilano Suspension Bridge",
+      "Sunset salmon along English Bay",
+      "Whistler day trip"
+    ],
+    "days": [
+      {
+        "title": "Seawall spin",
+        "focus": "Orientation",
+        "style": ["outdoors", "relaxation"],
+        "schedule": {
+          "morning": "Rent bikes near Coal Harbour and ride the Stanley Park seawall clockwise for skyline + forest views.",
+          "afternoon": "Picnic at Third Beach then visit the Vancouver Aquarium or totem poles.",
+          "evening": "Return bikes, grab gelato on Denman Street, and catch sunset at English Bay."
+        },
+        "meals": [
+          "Lunch: Granville Island picnic box",
+          "Dinner: Beachfront fish + chips"
+        ],
+        "notes": "Counter-clockwise is pedestrian only—follow the bike arrows."
+      },
+      {
+        "title": "Granville & Gastown",
+        "focus": "Food",
+        "style": ["foodie", "culture"],
+        "schedule": {
+          "morning": "Take the Aquabus to Granville Island for market tastings and artisan studios.",
+          "afternoon": "Explore Gastown design shops, steam clock, and Indigenous galleries.",
+          "evening": "Craft cocktail crawl along Water Street or reserve a chef's counter."
+        },
+        "meals": [
+          "Lunch: Oyama charcuterie sample",
+          "Dinner: Gastown tasting menu"
+        ],
+        "notes": "Snag theatre tickets at Granville Island for a spontaneous show."
+      },
+      {
+        "title": "North Shore nature",
+        "focus": "Adventure",
+        "style": ["outdoors", "adventure"],
+        "schedule": {
+          "morning": "Bus or drive to Capilano Suspension Bridge Park, exploring treetop walks and cliffwalks.",
+          "afternoon": "Continue to Lynn Canyon free suspension bridge or hike Quarry Rock in Deep Cove.",
+          "evening": "Reward yourself with craft beer in North Vancouver's Shipyards District."
+        },
+        "meals": [
+          "Lunch: Deep Cove honey donuts",
+          "Dinner: Shipyards food trucks"
+        ],
+        "notes": "Arrive early at Capilano to beat bus tour crowds."
+      },
+      {
+        "title": "Choose-your-own coastal",
+        "focus": "Flex",
+        "style": ["coastal", "relaxation"],
+        "schedule": {
+          "morning": "Kayak on False Creek or take a whale-watching cruise to spot orcas.",
+          "afternoon": "Relax on Kitsilano Beach or visit the Museum of Anthropology at UBC.",
+          "evening": "Dine along Yaletown patios with views of the seawall."
+        },
+        "meals": [
+          "Lunch: Kitsilano poke",
+          "Dinner: Yaletown seafood"
+        ],
+        "notes": "Museum is temporarily closed Mondays—check current hours."
+      }
+    ],
+    "flexDays": [
+      {
+        "title": "Whistler alpine dash",
+        "focus": "Mountains",
+        "style": ["adventure", "outdoors"],
+        "schedule": {
+          "morning": "Drive the Sea-to-Sky Highway, stopping at Shannon Falls before reaching Whistler Village.",
+          "afternoon": "Ride Peak 2 Peak gondola, hike alpine trails, or mountain bike the park.",
+          "evening": "Return to Vancouver for late-night ramen."
+        },
+        "meals": [
+          "Lunch: Whistler alpine cafe",
+          "Dinner: Robson Street ramen"
+        ],
+        "notes": "Book a car-share early; buses fill on weekends."
+      },
+      {
+        "title": "Sunshine Coast escape",
+        "focus": "Coast",
+        "style": ["relaxation", "coastal"],
+        "schedule": {
+          "morning": "Ferry to Gibsons Landing, browse seaside shops, and grab pastries.",
+          "afternoon": "Kayak calm coves or hike Soames Hill for Howe Sound views.",
+          "evening": "Stay overnight or ferry back for sunset along the seawall."
+        },
+        "meals": [
+          "Lunch: Local salmon burger",
+          "Dinner: Seawall takeout picnic"
+        ],
+        "notes": "Reserve ferry spots for cars; foot passengers can usually roll onboard."
+      }
+    ],
+    "localTips": [
+      "Pack a light rain layer even in July—the forecast can change within hours.",
+      "Compass cards make public transit taps quick on SkyTrain, SeaBus, and buses.",
+      "Respect wildlife on trails—give black bears space and pack out trash."
+    ]
+  }
+]

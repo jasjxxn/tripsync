@@ -3,71 +3,121 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>TripSync Recipe Finder</title>
+    <title>TripSync Itinerary Studio</title>
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
     <header class="app-header">
-      <div>
-        <p class="eyebrow">TripSync</p>
-        <h1>Balanced Recipe Finder</h1>
-        <p class="lede">
-          Tell us what’s left in your fridge and we’ll surface balanced meals that match a
-          40/30/30 macro split.
-        </p>
-      </div>
+      <p class="eyebrow">TripSync</p>
+      <h1>Itinerary Studio</h1>
+      <p class="lede">
+        Build a personalized day-by-day travel plan in seconds. Choose a destination, set your vibe,
+        and TripSync blends curated day plans with flexible add-ons and local intel.
+      </p>
     </header>
 
     <main class="app-main">
-      <section class="card">
-        <form id="ingredient-form">
-          <label for="ingredient-input">Ingredients on hand</label>
-          <textarea
-            id="ingredient-input"
-            placeholder="e.g. chickpeas, spinach, lemon, feta"
-            rows="3"
-          ></textarea>
-
-          <div class="controls">
-            <label>
-              Suggestions
-              <input id="suggestion-count" type="number" min="1" max="10" value="3" />
-            </label>
-            <label class="checkbox">
-              <input id="show-missing" type="checkbox" checked />
-              <span>Show missing ingredients</span>
-            </label>
+      <section class="planner card">
+        <form id="planner-form">
+          <div class="field">
+            <label for="destination-select">Destination</label>
+            <select id="destination-select" required>
+              <option value="" disabled selected>Select a city</option>
+            </select>
           </div>
 
-          <button type="submit" class="primary-button">Find recipes</button>
+          <div class="field-grid">
+            <div class="field">
+              <label for="trip-length">Trip length (days)</label>
+              <input id="trip-length" type="number" min="3" max="10" value="5" />
+            </div>
+            <div class="field">
+              <label for="start-date">Start date (optional)</label>
+              <input id="start-date" type="date" />
+            </div>
+          </div>
+
+          <fieldset class="field">
+            <legend>Trip styles</legend>
+            <p class="helper-text">Pick the vibes you care about most.</p>
+            <div class="option-grid" id="style-options">
+              <label class="chip">
+                <input type="checkbox" name="styles" value="culture" checked />
+                <span>Culture</span>
+              </label>
+              <label class="chip">
+                <input type="checkbox" name="styles" value="foodie" checked />
+                <span>Foodie</span>
+              </label>
+              <label class="chip">
+                <input type="checkbox" name="styles" value="outdoors" />
+                <span>Outdoors</span>
+              </label>
+              <label class="chip">
+                <input type="checkbox" name="styles" value="nightlife" />
+                <span>Nightlife</span>
+              </label>
+              <label class="chip">
+                <input type="checkbox" name="styles" value="relaxation" />
+                <span>Relaxation</span>
+              </label>
+              <label class="chip">
+                <input type="checkbox" name="styles" value="adventure" />
+                <span>Adventure</span>
+              </label>
+              <label class="chip">
+                <input type="checkbox" name="styles" value="coastal" />
+                <span>Coastal</span>
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset class="field">
+            <legend>Preferred pace</legend>
+            <div class="pace-options">
+              <label>
+                <input type="radio" name="pace" value="chill" />
+                <span>Chill + slow coffee breaks</span>
+              </label>
+              <label>
+                <input type="radio" name="pace" value="balanced" checked />
+                <span>Balanced mix</span>
+              </label>
+              <label>
+                <input type="radio" name="pace" value="energetic" />
+                <span>Pack it all in</span>
+              </label>
+            </div>
+          </fieldset>
+
+          <button type="submit" class="primary-button">Generate itinerary</button>
+          <p class="helper-text small">
+            Data lives locally in <code>data/itineraries.json</code>, so feel free to fork and tailor
+            it to your favorite places.
+          </p>
         </form>
       </section>
 
       <section id="results" class="results">
-        <p class="placeholder">Add ingredients to see recipe suggestions.</p>
+        <p class="placeholder">Select a destination and tap “Generate itinerary.”</p>
       </section>
     </main>
 
-    <template id="recipe-template">
-      <article class="recipe-card">
-        <header class="recipe-header">
+    <template id="day-template">
+      <article class="day-card">
+        <header class="day-header">
           <div>
-            <h2 class="recipe-title"></h2>
-            <p class="recipe-servings"></p>
+            <p class="day-label"></p>
+            <h3 class="day-title"></h3>
           </div>
-          <div class="score-pill"></div>
+          <span class="focus-tag"></span>
         </header>
-        <p class="recipe-tags"></p>
-        <p class="recipe-macros"></p>
-        <div class="recipe-body">
-          <h3>Instructions</h3>
-          <ol class="recipe-steps"></ol>
-        </div>
-        <div class="recipe-missing hidden">
-          <h3>Missing ingredients</h3>
+        <ul class="schedule"></ul>
+        <div class="meal-list hidden">
+          <h4>Food moments</h4>
           <ul></ul>
         </div>
-        <p class="recipe-notes hidden"></p>
+        <p class="day-notes hidden"></p>
       </article>
     </template>
 

@@ -1,11 +1,13 @@
 :root {
-  color-scheme: light dark;
-  --bg: #0a0a0a;
-  --fg: #f7f7f7;
-  --card-bg: rgba(255, 255, 255, 0.06);
-  --accent: #64d68a;
-  --muted: #a7a7a7;
+  color-scheme: dark;
+  --bg: #05060c;
+  --bg-alt: rgba(255, 255, 255, 0.04);
+  --card: rgba(11, 16, 32, 0.85);
   --border: rgba(255, 255, 255, 0.1);
+  --fg: #f7f9ff;
+  --muted: rgba(247, 249, 255, 0.75);
+  --accent: #58ffe3;
+  --accent-strong: #7cf4ff;
   font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
@@ -18,205 +20,332 @@
 body {
   margin: 0;
   min-height: 100vh;
-  background: radial-gradient(circle at top, #1a1f2b, #050505 60%);
+  background: radial-gradient(circle at top, #111836 0%, #05060c 55%);
   color: var(--fg);
   display: flex;
   flex-direction: column;
+  padding-bottom: 3rem;
 }
 
 .app-header {
-  padding: 3rem 1.5rem 1.5rem;
   text-align: center;
+  padding: 3rem 1.5rem 1rem;
 }
 
 .eyebrow {
   text-transform: uppercase;
-  letter-spacing: 0.3em;
+  letter-spacing: 0.4em;
   font-size: 0.75rem;
   color: var(--muted);
-  margin-bottom: 0.4rem;
+  margin: 0 0 0.5rem;
 }
 
 .app-header h1 {
-  font-size: clamp(2rem, 4vw, 3rem);
-  margin: 0.2rem 0;
+  margin: 0;
+  font-size: clamp(2.4rem, 4vw, 3.4rem);
 }
 
 .lede {
-  max-width: 32rem;
-  margin: 0.5rem auto 0;
-  color: #d1d1d1;
+  max-width: 44rem;
+  margin: 0.75rem auto 0;
+  color: var(--muted);
 }
 
 .app-main {
-  width: min(960px, 90vw);
-  margin: 0 auto 3rem;
+  width: min(1100px, 92vw);
+  margin: 0 auto;
   display: grid;
   gap: 1.5rem;
 }
 
 .card {
-  background: var(--card-bg);
+  background: var(--card);
   border: 1px solid var(--border);
-  border-radius: 1rem;
-  padding: 1.5rem;
-  backdrop-filter: blur(10px);
+  border-radius: 1.25rem;
+  padding: 1.75rem;
+  backdrop-filter: blur(16px);
+  box-shadow: 0 40px 80px rgba(3, 4, 11, 0.6);
 }
 
-label {
+.planner form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.field-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+label,
+legend {
   font-weight: 600;
-  display: block;
-  margin-bottom: 0.4rem;
+  font-size: 0.95rem;
 }
 
+input:not([type="checkbox"]):not([type="radio"]),
+select,
 textarea {
   width: 100%;
   padding: 0.75rem;
-  border-radius: 0.8rem;
+  border-radius: 0.85rem;
   border: 1px solid var(--border);
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.04);
   color: inherit;
-  resize: vertical;
-  min-height: 4rem;
+  font-size: 1rem;
 }
 
-.controls {
+select {
+  appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, var(--accent) 50%),
+    linear-gradient(135deg, var(--accent) 50%, transparent 50%);
+  background-position: calc(100% - 18px) calc(50% - 3px), calc(100% - 13px) calc(50% - 3px);
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
+}
+
+.option-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
-  margin-top: 1rem;
-  align-items: center;
+  gap: 0.5rem;
 }
 
-.controls input[type="number"] {
-  width: 4rem;
-  margin-left: 0.5rem;
-  padding: 0.4rem;
-  border-radius: 0.5rem;
+.chip {
   border: 1px solid var(--border);
-  background: rgba(255, 255, 255, 0.05);
-  color: inherit;
-}
-
-.checkbox {
+  border-radius: 999px;
+  padding: 0.35rem 0.9rem;
   display: inline-flex;
   gap: 0.4rem;
   align-items: center;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.chip input {
+  width: auto;
+  accent-color: var(--accent);
+}
+
+.chip span {
   font-weight: 500;
 }
 
+.pace-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.pace-options label {
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-start;
+  font-weight: 500;
+}
+
+.pace-options input {
+  margin-top: 0.1rem;
+}
+
 .primary-button {
-  margin-top: 1rem;
-  width: 100%;
-  padding: 0.9rem;
-  background: var(--accent);
-  color: #041f0f;
-  font-weight: 600;
+  width: fit-content;
+  min-width: 220px;
+  padding: 0.95rem 1.8rem;
+  border-radius: 999px;
   border: none;
-  border-radius: 0.9rem;
+  background: linear-gradient(120deg, #6ef9ff, #7cffd5);
+  color: #041120;
+  font-size: 1rem;
+  font-weight: 700;
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .primary-button:hover {
   transform: translateY(-1px);
-  box-shadow: 0 8px 30px rgba(100, 214, 138, 0.4);
+  box-shadow: 0 18px 40px rgba(127, 255, 232, 0.35);
+}
+
+.helper-text {
+  color: var(--muted);
+  margin: 0;
+}
+
+.helper-text.small {
+  font-size: 0.85rem;
 }
 
 .results {
-  display: grid;
-  gap: 1rem;
+  display: block;
 }
 
 .placeholder {
   text-align: center;
   color: var(--muted);
+  margin: 4rem 0;
 }
 
-.recipe-card {
-  background: var(--card-bg);
+.itinerary-card {
+  border-radius: 1.5rem;
+  background: var(--card);
   border: 1px solid var(--border);
-  border-radius: 1rem;
-  padding: 1.25rem;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 1.5rem;
 }
 
-.recipe-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
+.itinerary-header h2 {
+  margin: 0;
+  font-size: clamp(2rem, 3vw, 2.6rem);
+}
+
+.summary {
+  margin: 0.5rem 0 0;
+  color: var(--muted);
+  max-width: 54ch;
+}
+
+.meta-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin: 0;
+}
+
+.meta-grid dt {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+
+.meta-grid dd {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.highlights,
+.tips {
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 1rem;
+  padding: 1.25rem;
+}
+
+.highlights h3,
+.tips h3 {
+  margin: 0 0 0.75rem;
+}
+
+.highlights ul,
+.tips ul {
+  list-style: disc;
+  padding-left: 1.25rem;
+  margin: 0;
+  color: var(--muted);
+}
+
+.day-list {
+  display: grid;
   gap: 1rem;
 }
 
-.recipe-title {
-  margin: 0;
-  font-size: 1.5rem;
+.day-card {
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: 1.25rem;
+  background: rgba(5, 8, 22, 0.6);
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
 }
 
-.recipe-servings {
-  margin: 0.2rem 0 0;
+.day-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.day-header h3 {
+  margin: 0.1rem 0 0;
+}
+
+.day-label {
+  margin: 0;
+  font-size: 0.9rem;
   color: var(--muted);
 }
 
-.score-pill {
-  padding: 0.35rem 0.75rem;
+.focus-tag {
+  align-self: flex-start;
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 999px;
-  background: rgba(100, 214, 138, 0.14);
-  border: 1px solid rgba(100, 214, 138, 0.6);
-  font-weight: 600;
+  padding: 0.3rem 0.8rem;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-strong);
 }
 
-.recipe-tags {
+.schedule {
+  list-style: none;
   margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.schedule li {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 0.75rem;
+  align-items: flex-start;
+}
+
+.slot-label {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
   color: var(--muted);
 }
 
-.recipe-macros {
+.schedule p {
   margin: 0;
-  font-weight: 600;
 }
 
-.recipe-body {
-  margin-top: 0.3rem;
+.meal-list h4 {
+  margin: 0 0 0.35rem;
 }
 
-.recipe-body ol {
-  padding-left: 1rem;
+.meal-list ul {
+  margin: 0;
+  padding-left: 1.25rem;
+  color: var(--muted);
 }
 
-.recipe-body li + li {
-  margin-top: 0.4rem;
-}
-
-.recipe-missing ul {
-  margin: 0.5rem 0 0;
-  padding-left: 1.1rem;
-}
-
-.recipe-notes {
-  margin: 0.5rem 0 0;
+.day-notes {
+  margin: 0;
   font-style: italic;
   color: var(--muted);
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 @media (max-width: 640px) {
-  .controls {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .recipe-header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .primary-button {
-    font-size: 1rem;
+  .schedule li {
+    grid-template-columns: 1fr;
   }
 }
